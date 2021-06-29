@@ -1,9 +1,21 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:organic_basket/constant.dart';
+import 'package:organic_basket/core/Cart.dart';
+import 'package:organic_basket/core/store.dart';
+import 'package:organic_basket/widgets/cart_item.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    MyStore store = VxState.store;
+    print('nikunj');
+
+    // VxState.watch(context, on: [RemoveProduct]);
+
     final mq = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kPrimaryColor,
@@ -20,41 +32,28 @@ class CartScreen extends StatelessWidget {
             ),
             Container(
               height: mq.height * 0.6,
+              width: double.infinity,
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(30),
               ),
-              child: Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (ctx, index) => Container(
-                    margin: EdgeInsets.all(5),
-                    child: ListTile(
-                      leading: Container(
-                        color: Colors.grey,
-                        height: 200,
-                        width: 100,
-                        child: Image.network(
-                          'https://static.libertyprim.com/files/familles/fraise-large.jpg?1569271765',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      title: Text('Strawberry'),
-                      subtitle: Text('\$17.00/kg'),
-                      trailing: Column(
-                        children: [
-                          Icon(Icons.add),
-                          Icon(Icons.add),
-                        ],
-                      ),
-                    ),
+              child: VxBuilder(
+                mutations: {RemoveProduct},
+                builder: (context, _, status) => Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
                   ),
+                  child: store.cart.allProductsInCart.length == 0
+                      ? Text('No Product added ')
+                      : ListView.builder(
+                          itemCount: store.cart.allProductsInCart.length,
+                          itemBuilder: (ctx, index) => CartItem(
+                            productModel: store.cart.allProductsInCart[index],
+                          ),
+                        ),
                 ),
               ),
             ),
@@ -65,9 +64,13 @@ class CartScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    'Total: \$28.60',
-                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                  VxBuilder(
+                    mutations: {AddProduct,RemoveProduct},
+                    builder: (context,_,__) =>
+                    Text(
+                      'Total: ${store.cart.totalPrice}',
+                      style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(
                     height: 50,

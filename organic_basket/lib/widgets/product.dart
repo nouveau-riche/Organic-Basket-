@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:organic_basket/core/Cart.dart';
+import 'package:organic_basket/core/store.dart';
+import 'package:organic_basket/models/product_model.dart';
 
 import '../constant.dart';
 
 class Product extends StatelessWidget {
+  final ProductModel productModel;
+
+  Product({this.productModel});
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
@@ -23,13 +30,13 @@ class Product extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: Text(
-              'Strawberry',
+              productModel.title,
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
           Text(
             '\$17.00/Kg',
-            style: TextStyle(fontSize: 15,color: Colors.grey),
+            style: TextStyle(fontSize: 15, color: Colors.grey),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8),
@@ -45,7 +52,9 @@ class Product extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    AddProduct(productModel);
+                  },
                   child: Container(
                     height: 50,
                     width: 45,

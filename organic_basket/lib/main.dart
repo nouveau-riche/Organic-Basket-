@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:organic_basket/core/store.dart';
 import 'package:organic_basket/screens/categories_screen.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import './screens/login_screen.dart';
 import './screens/signup_screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/welcome_screen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      VxState(store: MyStore(), child: MyApp()),
+    );
 
 class MyApp extends StatelessWidget {
   @override

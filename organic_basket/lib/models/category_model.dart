@@ -1,9 +1,10 @@
+import 'package:organic_basket/models/product_model.dart';
 
 class Category {
   final int id;
   final String title;
   final String image;
+  final List<ProductModel> productModels;
 
-  Category({required this.id, required this.title, required this.image});
+  Category({this.id, this.title, this.image, this.productModels});
 }
-

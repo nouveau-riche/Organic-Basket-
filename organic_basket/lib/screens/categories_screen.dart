@@ -48,6 +48,7 @@ class CategoriesScreen extends StatelessWidget {
                       childAspectRatio: 0.8),
                   itemBuilder: (ctx, index) => CategoryItem(
                     title: Data.categories[index].title,
+                    productModel: Data.categories[index].productModels,
                   ),
                   itemCount: Data.categories.length,
                 ),

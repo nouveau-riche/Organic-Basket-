@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:organic_basket/models/product_model.dart';
 
 import '../screens/categories_item_screen.dart';
 import '../constant.dart';
 
 class CategoryItem extends StatelessWidget {
   final String title;
+  final List<ProductModel> productModel;
 
-  CategoryItem({required this.title});
+
+  CategoryItem({ this.title,this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +21,7 @@ class CategoryItem extends StatelessWidget {
           MaterialPageRoute(
             builder: (ctx) => CategoriesItemScreen(
               title: title,
+              productModel: productModel,
             ),
           ),
         );

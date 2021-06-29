@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:organic_basket/core/auth.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  String _name;
+  String _email;
+  String _password;
+
+  _save() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      Authentication.signUp(
+          context: context, email: _email, password: _password);
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -29,13 +52,20 @@ class SignUpScreen extends StatelessWidget {
             SizedBox(
               height: mq.height * 0.08,
             ),
-            buildNameField(),
-            buildEmailField(),
-            buildPasswordField(),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  buildNameField(),
+                  buildEmailField(),
+                  buildPasswordField(),
+                ],
+              ),
+            ),
             SizedBox(
               height: mq.height * 0.08,
             ),
-            buildLoginButton(mq),
+            buildSignupButton(mq, context),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -48,7 +78,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
             ),
-            buildLoginGoogleButton(mq),
+            buildSignupGoogleButton(mq),
             buildSignUpButton(context),
           ],
         ),
@@ -70,6 +100,9 @@ class SignUpScreen extends StatelessWidget {
             borderSide: BorderSide(color: Colors.black),
           ),
         ),
+        onSaved: (value) {
+          _name = value;
+        },
       ),
     );
   }
@@ -88,6 +121,9 @@ class SignUpScreen extends StatelessWidget {
             borderSide: BorderSide(color: Colors.black),
           ),
         ),
+        onSaved: (value) {
+          _email = value;
+        },
       ),
     );
   }
@@ -107,17 +143,20 @@ class SignUpScreen extends StatelessWidget {
             borderSide: BorderSide(color: Colors.black),
           ),
         ),
+        onSaved: (value) {
+          _password = value;
+        },
       ),
     );
   }
 
-  Widget buildLoginButton(Size mq) {
+  Widget buildSignupButton(Size mq, BuildContext context) {
     return Center(
       child: SizedBox(
         height: mq.height * 0.07,
         width: mq.width * 0.8,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: _save,
           style: ElevatedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
@@ -131,7 +170,7 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget buildLoginGoogleButton(Size mq) {
+  Widget buildSignupGoogleButton(Size mq) {
     return Center(
       child: SizedBox(
         height: mq.height * 0.07,

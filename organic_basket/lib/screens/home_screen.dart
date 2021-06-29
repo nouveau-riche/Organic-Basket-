@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organic_basket/widgets/category_item.dart';
+import 'package:organic_basket/widgets/popular_item.dart';
 
 import '../constant.dart';
 import '../data/data.dart';
@@ -129,7 +130,8 @@ class HomeScreen extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: Data.categories.length,
               itemBuilder: (ctx, index) =>
-                  CategoryItem(title: Data.categories[index].title),
+                  CategoryItem(title: Data.categories[index].title,productModel: Data.categories[index].productModels,),
+
             ),
           ),
         ],
@@ -186,7 +188,7 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: Data.popularDeals.length,
-              itemBuilder: (ctx, index) => Data.popularDeals[index],
+              itemBuilder: (ctx, index) => PopularItem(),
             ),
           ),
         ],

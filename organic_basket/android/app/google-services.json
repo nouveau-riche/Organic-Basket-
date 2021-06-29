@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "822830247786",
+    "project_id": "organic-basket-f94fb",
+    "storage_bucket": "organic-basket-f94fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822830247786:android:8fb4ff0ea762b148c97f13",
+        "android_client_info": {
+          "package_name": "com.organic_basket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822830247786-dp8enim2bgafij9fe6qjidgprvk99qde.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW_CRZaor8_T0zsUf3ZeN4Ed7AE15i92A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822830247786-dp8enim2bgafij9fe6qjidgprvk99qde.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

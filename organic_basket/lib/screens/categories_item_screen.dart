@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:organic_basket/models/product_model.dart';
 
 import '../widgets/product.dart';
 import '../constant.dart';
 
 class CategoriesItemScreen extends StatelessWidget {
   final String title;
+  final List<ProductModel> productModel;
 
-  CategoriesItemScreen({required this.title});
+  CategoriesItemScreen({ this.title,this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +50,8 @@ class CategoriesItemScreen extends StatelessWidget {
                       mainAxisSpacing: 20,
                       crossAxisSpacing: 10,
                       childAspectRatio: 0.6),
-                  itemBuilder: (ctx, index) => Product(),
-                  itemCount: 5,
+                  itemBuilder: (ctx, index) => Product(productModel: productModel[index],),
+                  itemCount: productModel.length,
                 ),
               ),
             ),

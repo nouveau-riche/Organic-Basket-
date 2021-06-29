@@ -1,4 +1,4 @@
-class Product {
+class ProductModel {
   final int id;
   final String title;
   final num perItemPrice;
@@ -8,13 +8,13 @@ class Product {
   final String description;
   final bool isAvailable;
 
-  Product(
-      {required this.id,
-      required this.title,
-      required this.perItemPrice,
-      required this.itemPrice,
-      required this.reviews,
-      required this.description,
-      required this.isAvailable,
-      required this.image});
+  ProductModel(
+      { this.id,
+       this.title,
+       this.perItemPrice,
+       this.itemPrice,
+       this.reviews,
+       this.description,
+       this.isAvailable,
+       this.image});
 }
