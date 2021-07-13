@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organic_basket/core/auth.dart';
+import 'package:organic_basket/core/store.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -21,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
           context: context, email: _email, password: _password);
     }
   }
+
+  MyStore store = VxState.store;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,13 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: mq.height * 0.14,
             ),
-            buildLoginButton(mq),
+            VxBuilder(
+                builder: (_, __, ___) {
+                  return store.isLoading == true
+                      ? CircularProgressIndicator()
+                      : buildLoginButton(mq);
+                },
+                mutations: {ToggleLoading}),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

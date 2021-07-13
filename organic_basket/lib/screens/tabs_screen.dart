@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:organic_basket/constant.dart';
+import 'package:organic_basket/core/firebase_methods.dart';
 import 'package:organic_basket/screens/account_screen.dart';
 import 'package:organic_basket/screens/cart_screen.dart';
 import 'package:organic_basket/screens/home_screen.dart';
@@ -11,6 +13,10 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+
+
+  String uid = FirebaseAuth.instance.currentUser.uid;
+
   List<Widget> screens = [
     HomeScreen(),
     OrderScreen(),
@@ -28,6 +34,9 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    FirebaseMethods.getDataFromFirebase(uid);
+
     return Scaffold(
       body: screens[pageIndex],
       bottomNavigationBar: BottomNavigationBar(

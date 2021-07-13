@@ -18,8 +18,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _formKey.currentState.save();
 
       Authentication.signUp(
-          context: context, email: _email, password: _password);
-
+          context: context, name: _name, email: _email, password: _password);
     }
   }
 
@@ -103,6 +102,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onSaved: (value) {
           _name = value;
         },
+
+        // ignore: missing_return
+        validator: (_value) {
+          if (_value.isEmpty) {
+            return 'Please Enter Name';
+          }
+        },
       ),
     );
   }
@@ -123,6 +129,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         onSaved: (value) {
           _email = value;
+        },
+        // ignore: missing_return
+        validator: (_value) {
+          if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\$').hasMatch(_value)) {
+            return 'Please enter valid email';
+          }
         },
       ),
     );
@@ -145,6 +157,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         onSaved: (value) {
           _password = value;
+        },
+
+        // ignore: missing_return
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Please Enter your Password';
+          }
+
+          if (value.length < 6) {
+            return 'password length should be of more than 5';
+          }
         },
       ),
     );
