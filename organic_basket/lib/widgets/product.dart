@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:organic_basket/core/Cart.dart';
 import 'package:organic_basket/core/store.dart';
@@ -7,6 +8,8 @@ import '../constant.dart';
 
 class Product extends StatelessWidget {
   final ProductModel productModel;
+
+  final String uid = FirebaseAuth.instance.currentUser.uid;
 
   Product({this.productModel});
 
@@ -53,7 +56,7 @@ class Product extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    AddProduct(productModel);
+                    AddProduct(productModel, uid);
                   },
                   child: Container(
                     height: 50,

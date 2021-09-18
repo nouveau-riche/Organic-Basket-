@@ -49,6 +49,7 @@ class CategoriesScreen extends StatelessWidget {
                   itemBuilder: (ctx, index) => CategoryItem(
                     title: Data.categories[index].title,
                     productModel: Data.categories[index].productModels,
+                    image: Data.categories[index].image,
                   ),
                   itemCount: Data.categories.length,
                 ),

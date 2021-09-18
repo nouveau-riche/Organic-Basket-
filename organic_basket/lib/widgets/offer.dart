@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../constant.dart';
 
-class Offer extends StatelessWidget{
+class Offer extends StatelessWidget {
+  final String image;
+
+  Offer({this.image});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
 
     return Container(
@@ -15,7 +18,10 @@ class Offer extends StatelessWidget{
         color: kPrimaryColor.withOpacity(0.2),
         borderRadius: BorderRadius.circular(30),
       ),
+      child: Image.asset(
+        image,
+        fit: BoxFit.cover,
+      ),
     );
   }
-
 }

@@ -199,7 +199,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         height: mq.height * 0.07,
         width: mq.width * 0.8,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Authentication.signInWithGoogle(context);
+          },
           style: ElevatedButton.styleFrom(
             primary: Colors.white10,
             shape:

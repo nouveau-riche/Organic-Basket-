@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:organic_basket/core/store.dart';
 import '../screens/tabs_screen.dart';
 
 final auth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
 
 class Authentication {
   static Future<void> signUp(
@@ -18,7 +18,6 @@ class Authentication {
       String email,
       String password}) async {
     try {
-
       ToggleLoading();
 
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
@@ -27,7 +26,6 @@ class Authentication {
       User user = userCredential.user;
 
       if (user != null) {
-
         ToggleLoading();
 
         FirebaseMethods.saveUserToFirebase(
@@ -69,7 +67,6 @@ class Authentication {
   static Future<void> login(
       {BuildContext context, String email, String password}) async {
     try {
-
       ToggleLoading();
 
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
@@ -111,6 +108,50 @@ class Authentication {
   }
 
   static Future<void> SignOut() async {
+    await auth.signOut();
+  }
+
+  static void signInWithGoogle(BuildContext context) async {
+    try {
+      final GoogleSignInAccount googleSignInAccount =
+          await googleSignIn.signIn();
+
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      final UserCredential authResult =
+          await auth.signInWithCredential(credential);
+
+      final User user = authResult.user;
+
+      if (user != null) {
+        FirebaseMethods.saveUserToFirebase(
+            uid: user.uid, name: user.displayName, email: user.email);
+
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (ctx) => TabsScreen()));
+      }
+    } catch (error) {
+      print(error);
+      Fluttertoast.showToast(
+        msg: error.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+  }
+
+  static void signOutGoogle() async {
+    await googleSignIn.signOut();
     await auth.signOut();
   }
 }

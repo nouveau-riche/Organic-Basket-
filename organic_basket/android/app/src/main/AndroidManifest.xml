@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.organic_basket">
    <application
-        android:label="organic_basket"
+        android:label="Organic Basket"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

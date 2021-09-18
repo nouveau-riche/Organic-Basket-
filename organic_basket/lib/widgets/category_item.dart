@@ -6,10 +6,11 @@ import '../constant.dart';
 
 class CategoryItem extends StatelessWidget {
   final String title;
+  final String image;
   final List<ProductModel> productModel;
 
 
-  CategoryItem({ this.title,this.productModel});
+  CategoryItem({ this.title,this.productModel,this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,7 @@ class CategoryItem extends StatelessWidget {
                 color: kPrimaryColor.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(15),
               ),
+              child: Image.asset(image,fit: BoxFit.cover,),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 6),
